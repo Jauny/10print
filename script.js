@@ -2,7 +2,7 @@
  * Print is a the basic drawable entity on the canvas
  */
 class Print {
-  constructor({x, y, size, random = 0.5, canvas, ctx}) {
+  constructor({x, y, size = 20, random = 0.5, canvas, ctx}) {
     this.canvas = canvas
     this.ctx = ctx
     this.random = random
@@ -11,7 +11,7 @@ class Print {
     this.x = x
     this.y = y
 
-    this.size = size || 20
+    this.size = size
   }
 
   dir() {
@@ -221,26 +221,26 @@ const draw = (canvas, ctx, print) => {
   ctx.fillStyle = colors.splice(Math.floor(Math.random() * colors.length), 1)
   ctx.fillRect(0, 0, canvas.width, canvas.height)
   ctx.strokeStyle = colors.splice(Math.floor(Math.random() * colors.length), 1)
-  ctx.lineWidth = 10;
   print.render()
 }
 
-const setup = (type) => {
+const setup = (size, stroke, type) => {
   // get canvas from DOM
   const canvas = document.getElementById('canvas')
   const ctx = canvas.getContext('2d')
+  ctx.lineWidth = stroke;
 
   // constants
   const canvasSize = canvas.width
-  const size = canvas.width / 20
   const print = new type({
-    x: 0, y: 0, size, canvas, ctx
+    x: 0, y: 0, size, stroke, canvas, ctx
   })
 
   draw(canvas, ctx, print)
 }
-setup(TenPrint)
 
+let SIZE = parseInt(document.getElementById('size').value)
+let STROKE = parseInt(document.getElementById('stroke').value)
 let TYPE = TenPrint
 const prints = {
   ten: TenPrint,
@@ -248,12 +248,22 @@ const prints = {
   bubble: BubblePrint,
   triangle: TrianglePrint
 }
-const form = document.getElementById('form')
-form.onchange = (event) => {
-  TYPE = prints[event.target.value]
+const spans = document.getElementsByClassName('type')
+for (span of spans) {
+  span.onclick = (e) => {
+    TYPE = prints[event.target.id]
+    setup(SIZE, STROKE, TYPE)
+  }
 }
-const submit = document.getElementById('submit')
-submit.onclick = () => {
-  event.preventDefault()
-  setup(TYPE)
+const size = document.getElementById('size')
+size.oninput = (event) => {
+  SIZE = parseInt(event.target.value)
+  setup(SIZE, STROKE, TYPE)
 }
+const stroke = document.getElementById('stroke')
+stroke.oninput = (event) => {
+  STROKE = parseInt(event.target.value)
+  setup(SIZE, STROKE, TYPE)
+}
+
+setup(SIZE, STROKE, TYPE)
