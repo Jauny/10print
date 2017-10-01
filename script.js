@@ -29,7 +29,6 @@ class TenPrint extends Print {
   }
 
   render() {
-    this.ctx.strokeStyle = 'orange'
     let [startx, starty] = [0, 0]
     let count = 0
 
@@ -64,7 +63,6 @@ class HayePrint extends Print {
   }
 
   render() {
-    this.ctx.strokeStyle = 'orange'
     let [startx, starty] = [0, 0]
 
     while (true) {
@@ -113,7 +111,6 @@ class BubblePrint extends Print {
   }
 
   render() {
-    this.ctx.strokeStyle = 'orange'
     let [startx, starty] = [0, 0]
 
     while (true) {
@@ -174,7 +171,6 @@ class TrianglePrint extends Print {
   }
 
   render() {
-    this.ctx.strokeStyle = 'orange'
     let [startx, starty] = [0, 0]
 
     while (true) {
@@ -206,16 +202,26 @@ class TrianglePrint extends Print {
 }
 
 /*
+ * Colors
+ */
+const COLOR_MAPPING = {
+  white: '#fbfaf9',
+  blue: '#52b8c5',
+  red: '#dc6c6c',
+  yellow: '#ecc464',
+  grey: '#a2abac'
+}
+const COLORS = Object.values(COLOR_MAPPING)
+
+/*
  * Rendering base.
- *
- * draw draws the canvas and its elements
- *
- * setup is a one time call to select the canvas DOM element
- * and start a loop 30 times / second.
  */
 const draw = (canvas, ctx, print) => {
-  ctx.fillStyle = 'black'
+  let colors = COLORS.slice()
+  ctx.fillStyle = colors.splice(Math.floor(Math.random() * colors.length), 1)
   ctx.fillRect(0, 0, canvas.width, canvas.height)
+  ctx.strokeStyle = colors.splice(Math.floor(Math.random() * colors.length), 1)
+  ctx.lineWidth = 10;
   print.render()
 }
 
