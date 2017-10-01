@@ -3,56 +3,56 @@
  */
 class Print {
   constructor({x, y, size, random = 0.5, canvas, ctx}) {
-    this.canvas = canvas;
-    this.ctx = ctx;
-    this.random = random;
+    this.canvas = canvas
+    this.ctx = ctx
+    this.random = random
 
     // position on cavas
-    this.x = x;
-    this.y = y;
+    this.x = x
+    this.y = y
 
-    this.size = size || 20;
+    this.size = size || 20
   }
 
   dir() {
-    return Math.random() < this.random;
+    return Math.random() < this.random
   }
 
   render() {
-    console.error('render has to be implement by sub class');
+    console.error('render has to be implement by sub class')
   }
 }
 
 class TenPrint extends Print {
   constructor(opts) {
-    super(opts);
+    super(opts)
   }
 
   render() {
-    this.ctx.strokeStyle = 'orange';
-    let [startx, starty] = [0, 0];
-    let count = 0;
+    this.ctx.strokeStyle = 'orange'
+    let [startx, starty] = [0, 0]
+    let count = 0
 
     while (true) {
-      count++;
-      this.ctx.beginPath();
+      count++
+      this.ctx.beginPath()
       if (this.dir()) {
-        this.ctx.moveTo(startx, starty);
-        this.ctx.lineTo(startx + this.size, starty + this.size);
+        this.ctx.moveTo(startx, starty)
+        this.ctx.lineTo(startx + this.size, starty + this.size)
       } else {
-        this.ctx.moveTo(startx + this.size, starty);
-        this.ctx.lineTo(startx, starty + this.size);
+        this.ctx.moveTo(startx + this.size, starty)
+        this.ctx.lineTo(startx, starty + this.size)
       }
-      this.ctx.stroke();
-      this.ctx.closePath();
+      this.ctx.stroke()
+      this.ctx.closePath()
 
-      startx += this.size;
+      startx += this.size
       if (startx > this.canvas.width) {
-        startx = 0;
-        starty += this.size;
+        startx = 0
+        starty += this.size
       }
       if (starty > this.canvas.height) {
-        return;
+        return
       }
     }
   }
@@ -60,32 +60,32 @@ class TenPrint extends Print {
 
 class HayePrint extends Print {
   constructor(opts) {
-    super(opts);
+    super(opts)
   }
 
   render() {
-    this.ctx.strokeStyle = 'orange';
-    let [startx, starty] = [0, 0];
+    this.ctx.strokeStyle = 'orange'
+    let [startx, starty] = [0, 0]
 
     while (true) {
-      this.ctx.beginPath();
+      this.ctx.beginPath()
       if (this.dir()) {
-        this.ctx.moveTo(startx + this.size/2, starty);
-        this.ctx.lineTo(startx + this.size/2, starty + this.size);
+        this.ctx.moveTo(startx + this.size/2, starty)
+        this.ctx.lineTo(startx + this.size/2, starty + this.size)
       } else {
-        this.ctx.moveTo(startx, starty + this.size/2);
-        this.ctx.lineTo(startx + this.size, starty + this.size/2);
+        this.ctx.moveTo(startx, starty + this.size/2)
+        this.ctx.lineTo(startx + this.size, starty + this.size/2)
       }
-      this.ctx.stroke();
-      this.ctx.closePath();
+      this.ctx.stroke()
+      this.ctx.closePath()
 
-      startx += this.size;
+      startx += this.size
       if (startx > this.canvas.width) {
-        startx = 0;
-        starty += this.size;
+        startx = 0
+        starty += this.size
       }
       if (starty > this.canvas.height) {
-        return;
+        return
       }
     }
   }
@@ -93,7 +93,7 @@ class HayePrint extends Print {
 
 class BubblePrint extends Print {
   constructor(opts) {
-    super(opts);
+    super(opts)
   }
 
   renderLeft(x, y) {
@@ -113,11 +113,11 @@ class BubblePrint extends Print {
   }
 
   render() {
-    this.ctx.strokeStyle = 'orange';
-    let [startx, starty] = [0, 0];
+    this.ctx.strokeStyle = 'orange'
+    let [startx, starty] = [0, 0]
 
     while (true) {
-      this.ctx.beginPath();
+      this.ctx.beginPath()
 
       if (this.dir()) {
         this.renderTop(startx + this.size / 2, starty + this.size / 2)
@@ -129,16 +129,16 @@ class BubblePrint extends Print {
         this.renderRight(startx + this.size / 2, starty + this.size / 2)
       }
 
-      this.ctx.stroke();
-      this.ctx.closePath();
+      this.ctx.stroke()
+      this.ctx.closePath()
 
-      startx += this.size;
+      startx += this.size
       if (startx > this.canvas.width) {
-        startx = 0;
-        starty += this.size;
+        startx = 0
+        starty += this.size
       }
       if (starty > this.canvas.height) {
-        return;
+        return
       }
     }
   }
@@ -146,7 +146,7 @@ class BubblePrint extends Print {
 
 class TrianglePrint extends Print {
   constructor(opts) {
-    super(opts);
+    super(opts)
   }
 
   renderLeft(x, y) {
@@ -174,11 +174,11 @@ class TrianglePrint extends Print {
   }
 
   render() {
-    this.ctx.strokeStyle = 'orange';
-    let [startx, starty] = [0, 0];
+    this.ctx.strokeStyle = 'orange'
+    let [startx, starty] = [0, 0]
 
     while (true) {
-      this.ctx.beginPath();
+      this.ctx.beginPath()
 
       if (this.dir()) {
         this.renderTop(startx, starty)
@@ -190,16 +190,16 @@ class TrianglePrint extends Print {
         this.renderRight(startx, starty)
       }
 
-      this.ctx.stroke();
-      this.ctx.closePath();
+      this.ctx.stroke()
+      this.ctx.closePath()
 
-      startx += this.size;
+      startx += this.size
       if (startx > this.canvas.width) {
-        startx = 0;
-        starty += this.size;
+        startx = 0
+        starty += this.size
       }
       if (starty > this.canvas.height) {
-        return;
+        return
       }
     }
   }
@@ -225,23 +225,28 @@ const setup = (type) => {
   const ctx = canvas.getContext('2d')
 
   // constants
-  const canvasSize = canvas.width;
-  const size = canvas.width / 20;
+  const canvasSize = canvas.width
+  const size = canvas.width / 20
   const print = new type({
     x: 0, y: 0, size, canvas, ctx
   })
 
-  draw(canvas, ctx, print);
+  draw(canvas, ctx, print)
 }
 setup(TenPrint)
 
+let TYPE = TenPrint
 const prints = {
   ten: TenPrint,
   haye: HayePrint,
   bubble: BubblePrint,
   triangle: TrianglePrint
-};
+}
 const form = document.getElementById('form')
 form.onchange = (event) => {
-  setup(prints[event.target.value])
+  TYPE = prints[event.target.value]
+}
+form.onsubmit = (event) => {
+  event.preventDefault()
+  setup(TYPE)
 }
