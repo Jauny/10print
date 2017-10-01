@@ -246,7 +246,8 @@ const form = document.getElementById('form')
 form.onchange = (event) => {
   TYPE = prints[event.target.value]
 }
-form.onsubmit = (event) => {
+const submit = document.getElementById('submit')
+submit.onclick = () => {
   event.preventDefault()
   setup(TYPE)
 }
